@@ -20,7 +20,7 @@
 
     <modules>
         <module>authorization-service</module>
-        <module>AccountsServiceBase</module>
+        <module>Account-Service</module>
     </modules>
     <dependencies>
         <!--DevTools        -->

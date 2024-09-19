@@ -8,8 +8,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	<groupId>com.bananaapps</groupId>
-	<artifactId>authorization-server</artifactId>
+	<artifactId>authorization-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>authorization-server</name>
 	<description>Oauth2</description>

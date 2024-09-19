@@ -1,0 +1,88 @@
+spring:
+  application.name: bank_account_service
+  profiles.active: dev
+
+server:
+  port: 8080
+products.openapi:
+  dev-url: "http://localhost:9090"
+  prod-url: "https://localhost:9943"
+---
+spring:
+  config.activate.on-profile: dev
+  sql.init.mode: always
+  datasource:
+    url: "jdbc:h2:mem:online_shopping_cart"
+    driverClassName: org.h2.Driver
+    username: demo_user
+    password: password
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+      generate-ddl: true
+    defer-datasource-initialization: true
+  h2:
+    console.enabled: true
+    console.path: /h2-ui
+
+server:
+  port: 9900
+
+#debug: true
+logging:
+  level.root: DEBUG
+  level.org.springframework.web: DEBUG
+  level.sql: DEBUG
+  level.org.hibernate.SQL: DEBUG
+  level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  file.path: /var/logs
+  file.name: /var/logs/mylog.log
+
+---
+spring:
+  config.activate.on-profile: prod
+  datasource:
+    url: "jdbc:h2:mem:online_shopping_cart"
+    driverClassName: org.h2.Driver
+    username: demo_user
+    password: password
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+      generate-ddl: true
+    defer-datasource-initialization: true
+  h2:
+    console.enabled: true
+    console.path: /h2-ui
+
+#  datasource:
+#    url: "jdbc:mysql://localhost/accounts_db"
+#    driverClassName: com.mysql.cj.jdbc.Driver
+#    username: account_user
+#    password: acc123
+#  jpa:
+#    show-sql: true
+#    database-platform: org.hibernate.dialect.MySQL5Dialect
+#    hibernate:
+#      ddl-auto: create-drop
+#      generate-ddl: true
+#    defer-datasource-initialization: true
+
+server:
+  port: 9943
+  servlet.context-path: /api/v1
+  ssl:
+    key-store: classpath:ssl/keystore.p12
+    key-store-password: password
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+
+logging:
+  level.root: ERROR
+  level.org.springframework.web: ERROR
+  level.sql: ERROR
+  level.org.hibernate.SQL: ERROR
