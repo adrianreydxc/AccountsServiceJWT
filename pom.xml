@@ -9,18 +9,18 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.bananaapps</groupId>
-    <artifactId>spring-security-oauth2</artifactId>
+    <artifactId>spring-security-pom-padre</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>microservices</name>
-    <description>microservices</description>
+    <name>Grupo 1</name>
+    <description>Spring security with oauth2</description>
     <properties>
         <java.version>11</java.version>
     </properties>
 
     <modules>
         <module>authorization-service</module>
-        <module>Account-Service</module>
+        <module>AccountsServiceBase</module>
     </modules>
     <dependencies>
         <!--DevTools        -->
@@ -29,7 +29,32 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
+
 
     <build>
         <plugins>
