@@ -83,10 +83,10 @@ public class AuthorizationServerConfig {
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .redirectUri("http://127.0.0.1:9000/login/oauth2/code/products-client-oidc")
                 .redirectUri("https://oauthdebugger.com/debug")
-                .redirectUri("http://127.0.0.1:9000/authorized")
+                .redirectUri("http://127.0.0.1:9000/authorize")
                 .tokenSettings(tokenSettings())
-                .scope(OidcScopes.OPENID)
                 .scope("SCOPE_products.read")
+                .scope(OidcScopes.OPENID)
                 .build();
 
         RegisteredClient oidcClient2 = RegisteredClient.withId(UUID.randomUUID().toString())
@@ -110,7 +110,7 @@ public class AuthorizationServerConfig {
     @Bean
     public ProviderSettings providerSettings() {
         return ProviderSettings.builder()
-                .issuer("http://auth-server:9000")
+                .issuer("http://localhost:9000")
                 .build();
     }
 
