@@ -1,7 +1,7 @@
 spring:
   application.name: bank_account_service
   profiles.active: dev
-
+spring.security.oauth2.resourceserver.jwt.issuer-uri: "http://auth-server:9000"
 server:
   port: 8080
 products.openapi:
@@ -32,13 +32,9 @@ server:
 
 #debug: true
 logging:
-  level.root: DEBUG
-  level.org.springframework.web: DEBUG
-  level.sql: DEBUG
-  level.org.hibernate.SQL: DEBUG
-  level.org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-  file.path: /var/logs
-  file.name: /var/logs/mylog.log
+  level.root: INFO
+  level.org.springframework.web: INFO
+  level.sql: INFO
 
 ---
 spring:
@@ -58,19 +54,6 @@ spring:
   h2:
     console.enabled: true
     console.path: /h2-ui
-
-#  datasource:
-#    url: "jdbc:mysql://localhost/accounts_db"
-#    driverClassName: com.mysql.cj.jdbc.Driver
-#    username: account_user
-#    password: acc123
-#  jpa:
-#    show-sql: true
-#    database-platform: org.hibernate.dialect.MySQL5Dialect
-#    hibernate:
-#      ddl-auto: create-drop
-#      generate-ddl: true
-#    defer-datasource-initialization: true
 
 server:
   port: 9943

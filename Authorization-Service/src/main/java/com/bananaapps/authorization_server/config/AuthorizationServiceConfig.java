@@ -18,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
@@ -36,7 +35,7 @@ import java.time.Duration;
 import java.util.UUID;
 
 @Configuration
-public class AuthorizationServerConfig {
+public class AuthorizationServiceConfig {
 
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -76,31 +75,31 @@ public class AuthorizationServerConfig {
     public RegisteredClientRepository registeredClientRepository() {
 
         RegisteredClient oidcClient1 = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("client1")
-                .clientSecret("{noop}myClientSecretValue")
+                .clientId("myBankApp")
+                .clientSecret("{noop}myBankApp")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://127.0.0.1:9000/login/oauth2/code/products-client-oidc")
+                .redirectUri("http://127.0.0.1:9000/login/oauth2/code/accounts-client-oidc")
                 .redirectUri("https://oauthdebugger.com/debug")
                 .redirectUri("http://127.0.0.1:9000/authorize")
                 .tokenSettings(tokenSettings())
-                .scope("SCOPE_products.read")
+                .scope("SCOPE_accounts.read")
                 .scope(OidcScopes.OPENID)
                 .build();
 
         RegisteredClient oidcClient2 = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("client2")
-                .clientSecret("{noop}myClientSecretValue2")
+                .clientId("myBankApp2")
+                .clientSecret("{noop}myBankApp2")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+                .redirectUri("http://127.0.0.1:9000/login/oauth2/code/accounts-client-oidc")
                 .redirectUri("https://oauthdebugger.com/debug")
-                .redirectUri("http://127.0.0.1:8080/authorized")
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/products-client-oidc")
-                .scope(OidcScopes.OPENID)
-                .scope("SCOPE_products.write")
+                .redirectUri("http://127.0.0.1:9000/authorize")
                 .tokenSettings(tokenSettings())
+                .scope("SCOPE_accounts.write")
+                .scope(OidcScopes.OPENID)
                 .build();
 
         return new InMemoryRegisteredClientRepository(oidcClient1, oidcClient2);
@@ -122,11 +121,6 @@ public class AuthorizationServerConfig {
                 .build();
         // @formatter:on
     }
-
-    /*@Bean
-    public JwtDecoder jwtDecoder(JWKSource<SecurityContext> jwkSource) {
-        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource);
-    }*/
 
     @Bean
     public JWKSource<SecurityContext> jwkSource() throws NoSuchAlgorithmException {

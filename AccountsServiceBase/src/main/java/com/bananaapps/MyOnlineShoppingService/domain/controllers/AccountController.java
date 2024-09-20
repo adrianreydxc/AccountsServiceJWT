@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,7 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping()
+    @PreAuthorize("hasAuthority('SCOPE_accounts.read')")
     @Operation(summary = "Get all accounts")
     @ApiResponse(responseCode = "200", description = "Tag added successfully")
     public ResponseEntity<List<AccountDto>> getAccounts() throws Exception {
@@ -43,6 +45,7 @@ public class AccountController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_accounts.read')")
     @Operation(summary = "Get account by ID", description = "Fetches an account by its ID and the user associated with it")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Account retrieved successfully",
@@ -74,6 +77,7 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.OK).body(accountService.getAccountsByUser(id));
     }
     @PostMapping()
+    @PreAuthorize("hasAuthority('SCOPE_accounts.write')")
     @Operation(summary = "Create a new account", description = "Creates a new account for a user.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Account created successfully",
@@ -162,6 +166,7 @@ public class AccountController {
     }
 
     @PostMapping("/loan/{userId}")
+    @PreAuthorize("hasAuthority('SCOPE_accounts.read')")
     @Operation(summary = "Check loan eligibility", description = "Checks if a user is eligible for a loan based on their account balance.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Loan eligibility checked successfully",

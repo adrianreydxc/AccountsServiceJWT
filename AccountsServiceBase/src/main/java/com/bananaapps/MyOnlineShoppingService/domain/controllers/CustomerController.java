@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,6 +40,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping()
+    @PreAuthorize("hasAuthority('SCOPE_accounts.read')")
     @Operation(summary = "Get all customers", description = "Fetches a list of all customers.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Customers retrieved successfully",
