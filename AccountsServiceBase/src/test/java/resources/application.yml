@@ -31,7 +31,8 @@ products.openapi:
 ---
 spring:
   config.activate.on-profile: testing
-
+  security:
+    enabled: false
 server:
   error:
     include-message: always
